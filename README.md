@@ -1,4 +1,4 @@
-# Domain Adaptation for Semantic Segmentation implemeted by PyTorch
+# Multichannel Semantic Segmentation with Unsupervised Domain Adaptation implemeted by PyTorch
 
 ## Installation
 Use **Python 2.x**
@@ -11,79 +11,71 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-### Train
-For validation data
+We adopted Maximum Classifier Discrepancy (MCD) for unsupervised domain adaptation.
+
+
+### MCD Training
+
+- adapt_xxx.py
+    - for domain adaptation (MCD)
+- dann_xxx.py
+    -  for domain adaptation (DANN: Domain Adversarial Neural Network)  
+
+- source_xxx.py
+    - for source only
+    
+
+
+#### Fusions
+Early Fusion
 ```
-python adapt_trainer.py gta city --res 152 --savename aug152 --augment
+python adapt_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha
+```
+
+Late Fusion
+```
+python adapt_mfnet_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha --method_detail MFNet-AddFusion
+```
+Score Fusion
+```
+python adapt_mfnet_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha --method_detail MFNet-ScoreAddFusion
+```
+
+#### Multitask
+
+Segmentation + Depth Estimation (HHA regression)
+```
+python adapt_multitask_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha --method_detail MFNet-ScoreAddFusion
 ```
 
 
-For test data
+Segmentation + Depth Estimation (HHA regression) + Boundary Detection
 ```
-python adapt_trainer.py gta test --res 152 --savename aug152 --augment
+python adapt_tripletask_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha  --method_detail MFNet-ScoreAddFusion
 ```
 
 
 ### Test
-For validation data
 ```
-python adapt_tester.py city ./pth/hogehoge.pth.tar
-```
-
-For test data
-```
-python adapt_tester.py test ./pth/hogehoge.pth.tar
+python adapt_triple_multitask_tester.py nyu --split test_rgbhha train_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD_triple_multitask/pth/MCD-normal-drn_d_38-10.pth.tar
 ```
 
-Results will be saved under "./outputs/hogehoge/".
+Results will be saved under "./test_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD_triple_multitask---nyu-test_rgbhha/MCD-normal-drn_d_38-10.tar/" .
 
-#### CRF postprocessing
-To use crf.py, you need to install pydensecrf. (https://github.com/lucasb-eyer/pydensecrf)
+### Postprocess using Boundary Detection output
+You need Matlab.
 
 ```
-pip install git+https://github.com/lucasb-eyer/pydensecrf.git
-```
-
-After you ran adapt_tester, you can apply crf as follows;
-
-For validation data
-```
-python crf.py ./outputs/YOUR_MODEL_NAME/prob crf_output --outimg_shape 2048 1024
+bash ./sample_scripts/refine_seg_by_boundary.sh
 ```
 
-For test data
-```
-python crf.py ./outputs/YOUR_MODEL_NAME/prob crf_output --outimg_shape 1280 720
-```
-
-Optionally you can use raw img as follows;
-```
-python crf.py outputs/spatial-adapt-g-0.001000-7/prob  outputs/spatial-adapt-g-0.001000-7/label_crf_rawimg --raw_img_indir /data/unagi0/watanabe/DomainAdaptation/Segmentation/VisDA2017/cityscapes_val_imgs
-```
-Raw image paths are below;
-- valid: '/data/unagi0/watanabe/DomainAdaptation/Segmentation/VisDA2017/cityscapes_val_imgs'
-- test: '/data/ugui0/dataset/adaptation/segmentation_test'
-
-
-#### Visualize with Legend
-After you ran adapt_tester, you can apply visualization_with_legend as follows;
-```
-python visualize_result.py --indir_list outputs/loss-weighted152-test-g-0.001000-k4-7/label/ outputs/psp04-test-g-0.001000-k4-9/label/ outputs/spatial-resnet101-testdata-g-0.001000-k4-11/label/ outputs/psp-test-g-0.001000-k4-28/label/ outputs/loss-weighted152-test-g-0.001000-k4-14/label --outdir merged
-```
-![](_static/vis_with_legend.png)
-
-Results will be saved under "./outputs/YOUR_MODEL_NAME/vis_with_legend".
 
 ### Evaluation for Validation Data
+
 ```
-python eval.py city ./outputs/YOUR_MODEL_NAME/label
+python eval.py nyu ./test_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD_triple_multitask---nyu-test_rgbhha/YOUR_MODEL_NAME/label
 ```
 
-## TODO
-Check [Asana](https://app.asana.com/0/35723162034278/35723162034278)!
-
-- 2048x1024での学習コード。ちゃんとできているのか検証。
-- momery_save_trainer.py
 
 ## Reference codes
 - https://github.com/Lextal/pspnet-pytorch
