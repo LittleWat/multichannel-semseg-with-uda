@@ -26,7 +26,7 @@ We adopted Maximum Classifier Discrepancy (MCD) for unsupervised domain adaptati
     
 
 
-#### Fusions
+#### Fusion-based approach
 Early Fusion
 ```
 python adapt_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha
@@ -41,7 +41,7 @@ Score Fusion
 python adapt_mfnet_trainer.py suncg nyu --input_ch 6 --src_split train_rgbhhab --tgt_split trainval_rgbhha --method_detail MFNet-ScoreAddFusion
 ```
 
-#### Multitask
+#### Multitask learning approach
 
 Segmentation + Depth Estimation (HHA regression)
 ```
@@ -70,14 +70,14 @@ bash ./sample_scripts/refine_seg_by_boundary.sh
 ```
 
 
-### Evaluation for Validation Data
+### Evaluation
 
 ```
 python eval.py nyu ./test_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD_triple_multitask---nyu-test_rgbhha/YOUR_MODEL_NAME/label
 ```
 
 
-## Reference codes
+## Referenced codes
 - https://github.com/Lextal/pspnet-pytorch
 - https://github.com/fyu/drn
 - https://github.com/meetshah1995/pytorch-semseg
