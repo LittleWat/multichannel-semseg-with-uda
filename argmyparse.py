@@ -20,12 +20,12 @@ def add_additional_params_to_args(args):
         if "src_dataset" in args.__dict__.keys() and "train_img_shape" in args.__dict__.keys():
             if args.train_img_shape is None:
                 args.train_img_shape = get_img_shape(args.src_dataset, is_train=True)
-                print ("args.train_img_shape is set to %s" % args.train_img_shape)
+                print("args.train_img_shape is set to %s" % args.train_img_shape)
 
         if "tgt_dataset" in args.__dict__.keys() and "test_img_shape" in args.__dict__.keys():
             if args.test_img_shape is None:
                 args.test_img_shape = get_img_shape(args.tgt_dataset, is_train=False)
-                print ("args.test_img_shape is set to %s" % args.test_img_shape)
+                print("args.test_img_shape is set to %s" % args.test_img_shape)
         return args
 
     args = add_img_shape_to_args(args)
@@ -154,6 +154,21 @@ def get_da_mcd_testing_parser():
                         help="W H, FOR Valid(2048, 1024) Test(1280, 720)")
     parser.add_argument("--saves_prob", action="store_true",
                         help='whether you save probability tensors')
+    parser.add_argument("--use_f2", action="store_true",
+                        help='whether you use f2')
+    return parser
+
+
+def get_da_mcd_demo_parser():
+    parser = argparse.ArgumentParser(description='Adapt tester for validation data')
+    parser.add_argument('img_fn', default="sample_img/rgb_5947.png", type=str)
+    parser.add_argument('trained_checkpoint', default="dual_model.tar", type=str, metavar="PTH.TAR")
+    parser.add_argument('--tgt_dataset', default="nyu", type=str, choices=AVAILABLE_DATASET_LIST)
+    parser.add_argument('--split', type=str, default='test_rgbhha', help="'val' or 'test')  is used")
+    parser.add_argument('--outdir', type=str, default="demo_output",
+                        help='output directory')
+    parser.add_argument('--test_img_shape', default=None, nargs=2,
+                        help="W H, FOR Valid(2048, 1024) Test(1280, 720)")
     parser.add_argument("--use_f2", action="store_true",
                         help='whether you use f2')
     return parser
