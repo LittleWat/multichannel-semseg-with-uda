@@ -2,6 +2,7 @@ from __future__ import division
 
 import os
 
+import six
 import torch
 import tqdm
 from tensorboard_logger import configure, log_value
@@ -45,7 +46,7 @@ if args.resume:
 
     old_savename = args.savename
     args.savename = infn.split("-")[0]
-    print ("savename is %s (original savename %s was overwritten)" % (args.savename, old_savename))
+    print("savename is %s (original savename %s was overwritten)" % (args.savename, old_savename))
 
     checkpoint = torch.load(args.resume)
     start_epoch = checkpoint["epoch"]
@@ -98,7 +99,6 @@ tflog_dir = os.path.join(outdir, "tflog", model_name)
 mkdir_if_not_exist(tflog_dir)
 configure(tflog_dir, flush_secs=5)
 
-
 # Save param dic
 if resume_flg:
     json_fn = os.path.join(outdir, "param-%s_resume.json" % model_name)
@@ -146,12 +146,12 @@ model_dec.train()
 w_depth = 0.1
 
 if args.no_dropout:
-    print ("NO DROPOUT")
+    print("NO DROPOUT")
     fix_dropout_when_training(model_enc)
     fix_dropout_when_training(model_dec)
 
 if args.fix_bn:
-    print (emphasize_str("BN layers are NOT trained!"))
+    print(emphasize_str("BN layers are NOT trained!"))
     fix_batchnorm_when_training(model_enc)
     fix_batchnorm_when_training(model_dec)
 
@@ -222,7 +222,7 @@ for epoch in range(start_epoch, args.epochs):
         optimizer_dec.step()
 
         # ---------- update generator by discrepancy ---------- #
-        for i in xrange(args.num_k):
+        for i in six.moves.range(args.num_k):
             optimizer_enc.zero_grad()
             tgt_fet = model_enc(tgt_rgbs)
             tgt_discrepancy = model_dec.get_cls_descrepancy(tgt_fet)
@@ -238,6 +238,9 @@ for epoch in range(start_epoch, args.epochs):
         if ind > args.max_iter:
             break
 
+    std_semseg, std_depth = model_dec.get_task_weights()
+    print("std_semseg: %.4f, std_depth: %.4f" % (std_semseg, std_depth))
+
     print("Epoch [%d] DLoss: %.4f CLoss: %.4f" % (epoch, d_loss_per_epoch, c_loss_per_epoch))
     print("SrcSemsegLoss: %.4f, SrcDepthLoss: %.4f, SrcDepthLoss: %.4f" %
           (src_semseg_loss_per_epoch, src_depth_loss_per_epoch, tgt_depth_loss_per_epoch))
@@ -248,6 +251,9 @@ for epoch in range(start_epoch, args.epochs):
     log_value('src_depth_loss', src_depth_loss_per_epoch, epoch)
     log_value('tgt_depth_loss', tgt_depth_loss_per_epoch, epoch)
     log_value('lr', args.lr, epoch)
+
+    log_value('std_semseg', std_semseg, epoch)
+    log_value('std_depth', std_depth, epoch)
 
     if args.adjust_lr:
         args.lr = adjust_learning_rate(optimizer_enc, args.lr, args.weight_decay, epoch, args.epochs)

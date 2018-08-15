@@ -3,3 +3,4 @@ visdom
 tqdm
 easydict
 tensorboard_logger
+tensorboardX
