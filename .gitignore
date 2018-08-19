@@ -42,4 +42,7 @@ wheels/
 \.idea/
 
 
-
+.DS_Store
+.python-version
+demo_output
+docs/test.png

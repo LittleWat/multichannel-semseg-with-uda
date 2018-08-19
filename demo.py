@@ -26,7 +26,10 @@ print("=> loading checkpoint '{}'".format(args.trained_checkpoint))
 if not os.path.exists(args.trained_checkpoint):
     raise OSError("%s does not exist!" % args.trained_checkpoint)
 
-checkpoint = torch.load(args.trained_checkpoint)
+# checkpoint = torch.load(args.trained_checkpoint)
+checkpoint = torch.load(args.trained_checkpoint, map_location=lambda storage, loc: storage) # for CPU
+
+
 train_args = checkpoint["args"]
 args.start_epoch = checkpoint['epoch']
 print("----- train args ------")
@@ -38,7 +41,7 @@ base_outdir = os.path.join(args.outdir)
 mkdir_if_not_exist(base_outdir)
 
 json_fn = os.path.join(base_outdir, "param.json")
-check_if_done(json_fn)
+# check_if_done(json_fn)
 args.machine = os.uname()[1]
 save_dic_to_json(args.__dict__, json_fn)
 
@@ -57,9 +60,9 @@ if "background_id" in train_args.__dict__.keys():
 else:
     label_transform = get_lbl_transform(img_shape=train_img_shape, n_class=train_args.n_class)
 
-tgt_dataset = get_dataset(dataset_name=args.tgt_dataset, split=args.split, img_transform=img_transform,
-                          label_transform=label_transform, test=True, input_ch=train_args.input_ch)
-target_loader = data.DataLoader(tgt_dataset, batch_size=1, pin_memory=True)
+# tgt_dataset = get_dataset(dataset_name=args.tgt_dataset, split=args.split, img_transform=img_transform,
+#                           label_transform=label_transform, test=True, input_ch=train_args.input_ch)
+# target_loader = data.DataLoader(tgt_dataset, batch_size=1, pin_memory=True)
 
 weight = get_class_weight_from_file(n_class=train_args.n_class, weight_filename=train_args.loss_weights_file,
                                     add_bg_loss=train_args.add_bg_loss)
