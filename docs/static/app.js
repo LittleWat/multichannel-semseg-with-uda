@@ -19,6 +19,9 @@ $(function () {
         $("#prediction").text("Prediction: " + data.pred);
         $("#confidence").text("Confidence: " + data.confidence);
 
+        removeLoading();
+        console.log("removeLoading called!");
+
         var req = {
             url: "/currentimage",
             method: "get"
@@ -40,6 +43,9 @@ $(function () {
     };
 
     var fileChange = function (evt) {
+        dispLoading("computing...");
+        // dispLoading();
+
         var fileOb = $("#fileField")[0].files[0];
         var formData = new FormData();
         formData.append("picfile", fileOb);
