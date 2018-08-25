@@ -1,11 +1,9 @@
 import io
 import os
-import shutil
+import subprocess
 
 from PIL import Image
 from flask import Flask, redirect, request, jsonify
-from keras import models
-import subprocess
 
 app = Flask(__name__)
 model = None
@@ -81,7 +79,7 @@ def predict():
         #           % (os.path.join("docs", img_fn), os.path.join("docs", model_fn)))
 
         subprocess.call("python ./demo.py  %s %s"
-                  % (os.path.join("docs", img_fn), os.path.join("docs", model_fn)), shell=True)
+                        % (os.path.join("docs", img_fn), os.path.join("docs", model_fn)), shell=True)
 
         os.chdir("./docs")
 
