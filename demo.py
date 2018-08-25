@@ -16,7 +16,7 @@ from transform import get_img_transform, get_lbl_transform, unnormalize
 from util import mkdir_if_not_exist, save_dic_to_json, check_if_done, save_colorized_lbl, get_class_weight_from_file, \
     set_debugger_org_frc
 
-set_debugger_org_frc()
+# set_debugger_org_frc()
 
 parser = get_da_mcd_demo_parser()
 args = parser.parse_args()
