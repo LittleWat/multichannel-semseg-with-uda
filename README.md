@@ -27,6 +27,9 @@ Then, edit the `get_dataset` function in `datasets.py`.
 
 ## Demo
 
+You can [try our demo online](https://multichannel-uda-demo.herokuapp.com/)
+
+
 First, download the trained model as follows;
 ```
 wget wget https://www.dropbox.com/s/4lis0cjju5ounlg/dual_model.tar
