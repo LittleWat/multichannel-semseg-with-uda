@@ -46,3 +46,4 @@ wheels/
 .python-version
 demo_output
 docs/test.png
+docs/dual_model.tar
