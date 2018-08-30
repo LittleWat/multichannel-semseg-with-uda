@@ -104,7 +104,12 @@ def current_image():
 @app.route('/outsemseg', methods=['GET'])
 def semseg_image():
     fileob = open('../demo_output/vis_test.png', 'rb')
-    # fileob = open('./demo_output/vis_test.png', 'rb')
+    data = fileob.read()
+    return data
+
+@app.route('/outdepth', methods=['GET'])
+def depth_image():
+    fileob = open('../demo_output/depth_test.png', 'rb')
     data = fileob.read()
     return data
 

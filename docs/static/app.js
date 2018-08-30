@@ -8,7 +8,10 @@ $(function () {
     var getImageSuccess2 = function (data) {
         $("#outsemsegID").attr("src", "/outsemseg");
         console.log("getImageSuccess2 called");
-
+    };
+    var getImageSuccess3 = function (data) {
+        $("#outdepthID").attr("src", "/outdepth");
+        console.log("getImageSuccess3 called");
     };
 
     var getImageFailure = function (data) {
@@ -16,8 +19,6 @@ $(function () {
     };
 
     var successResult = function (data) {
-        $("#prediction").text("Prediction: " + data.pred);
-        $("#confidence").text("Confidence: " + data.confidence);
 
         removeLoading();
         console.log("removeLoading called!");
@@ -36,6 +37,13 @@ $(function () {
         };
         var promise2 = $.ajax(req2);
         promise2.then(getImageSuccess2, getImageFailure);
+
+        var req3 = {
+            url: "/outdepth",
+            method: "get"
+        };
+        var promise3 = $.ajax(req3);
+        promise3.then(getImageSuccess3, getImageFailure);
 
     };
     var failureResult = function (data) {

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Camera Project</title>
+    <title>Demo of Multichannel Segmentation with UDA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv=”Pragma” content=”no-cache”>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type='text/javascript' src='load.js'></script>
     <style>
@@ -15,16 +16,27 @@
 <body>
 
 <br class="container">
-    <form class="form-group">
-        <input type="file" accept="image/*;device=camera" class="mt-2" id="fileField" name="fileField"/>
-    </form>
+<form class="form-group">
+    <input type="file" accept="image/*;device=camera" class="mt-2" id="fileField" name="fileField"/>
+</form>
 
-    <p><img id="imageID" class="img-responsive" src="/currentimage" /></p>
-    <p><img id="outsemsegID" class="img-responsive" src="/outsemseg" /></p>
-    <p>
-      <span id="prediction">-</span><br>
-      <span id="confidence">-</span>
-    </p>
+
+<p>
+<h5>input image</h5>
+<img id="imageID" class="img-responsive" src="/currentimage"/>
+</p>
+<p>
+<h5>Result of Semantic Segmentation</h5>
+<img id="outsemsegID" class="img-responsive" src="/outsemseg"/>
+<!--<img src="pallte40class.png"/>-->
+<!--<embed src="pallte40class.pdf#page=2" type="application/pdf" width="100%" height="100%"></embed>-->
+</p>
+
+<p>
+<h5>Result of HHA (Depth) prediction</h5>
+<img id="outdepthID" class="img-responsive" src="/outdepth"/>
+</p>
+
 </div>
 <script src="app.js"></script>
 </body>
