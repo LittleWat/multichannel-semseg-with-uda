@@ -9,7 +9,7 @@ This is the code for the paper (Multichannel Semantic Segmentation with Unsuperv
 ![result](_static/result.png)
 
 
-If you find this code useful in your research, please consider citing:
+If you find this code(sorry still too messy) useful in your research, please consider citing:
 ```
 @inproceedings{watanabe2018multichannel,
   title={Multichannel Semantic Segmentation with Unsupervised Domain Adaptation},
@@ -50,7 +50,7 @@ You can [try our demo online](https://multichannel-uda-demo.herokuapp.com/)
 
 First, download the trained model as follows;
 ```
-wget wget https://www.dropbox.com/s/4lis0cjju5ounlg/dual_model.tar
+wget https://www.dropbox.com/s/4lis0cjju5ounlg/dual_model.tar
 ```
 
 
