@@ -2,6 +2,24 @@
 
 This is the code for the paper (Multichannel Semantic Segmentation with Unsupervised Domain Adaptation) in [AutoNUE workshop at ECCV-2018](http://cvit.iiit.ac.in/autonue2018/).
 
+##### Setting
+![setting](_static/suncg_nyu_setting.png)
+
+##### Sample results
+![result](_static/result.png)
+
+
+If you find this code useful in your research, please consider citing:
+```
+@inproceedings{watanabe2018multichannel,
+  title={Multichannel Semantic Segmentation with Unsupervised Domain Adaptation},
+  author={Watanabe, Kohei and Saito, Kuniaki and Ushiku, Yoshitaka and Harada, Tatsuya},
+  booktitle={Proceedings of the on AUTONUE Workshops of ECCV 2018},
+  year={2018},
+  organization={Springer}
+}
+```
+
 ## Installation
 Use **Python 2.x**
 
