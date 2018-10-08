@@ -44,6 +44,7 @@ Then, edit the `get_dataset` function in `datasets.py`.
 
 
 ## Demo
+![demo](https://github.com/LittleWat/multichannel-semseg-with-uda/blob/master/_static/demo.gif)
 
 You can [try our demo online](https://multichannel-uda-demo.herokuapp.com/)
 
