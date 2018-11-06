@@ -1,6 +1,6 @@
 # Multichannel Semantic Segmentation with Unsupervised Domain Adaptation implemeted by PyTorch
 
-This is the code for the paper (Multichannel Semantic Segmentation with Unsupervised Domain Adaptation) in [AutoNUE workshop at ECCV-2018](http://cvit.iiit.ac.in/autonue2018/).
+This is the code for [the paper (Multichannel Semantic Segmentation with Unsupervised Domain Adaptation)](https://drive.google.com/file/d/1n01p_M5gFmnOMvCdkkjFqy80YSPHaVuf/view?usp=sharing) in [AutoNUE workshop at ECCV-2018](http://cvit.iiit.ac.in/autonue2018/).
 
 ##### Setting
 ![setting](_static/suncg_nyu_setting.png)
