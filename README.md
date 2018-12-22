@@ -65,7 +65,7 @@ Result will be saved under `demo_output` directory.
 
 
 ## Usage
-We adopted Maximum Classifier Discrepancy (MCD) for unsupervised domain adaptation.
+We adopted [Maximum Classifier Discrepancy (MCD)](https://github.com/mil-tokyo/MCD_DA) for unsupervised domain adaptation.
 
 
 ### MCD Training
