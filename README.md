@@ -143,4 +143,4 @@ python eval.py nyu ./test_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD
 - https://github.com/meetshah1995/pytorch-semseg
 - https://github.com/ycszen/pytorch-seg
 
-<img src="./_static/vis_with_legend.png" width="600"/>
+<img src="_static/vis_with_legend.png" width="600"/>
