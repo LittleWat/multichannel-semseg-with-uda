@@ -8,7 +8,6 @@ This is the code for [the paper (Multichannel Semantic Segmentation with Unsuper
 ##### Sample results
 ![result](_static/result.png)
 
-
 If you find this code(sorry still too messy) useful in your research, please consider citing:
 ```
 @inproceedings{watanabe2018multichannel,
@@ -143,3 +142,5 @@ python eval.py nyu ./test_output/suncg-train_rgbhhab2nyu-trainval_rgbhha_6ch_MCD
 - https://github.com/fyu/drn
 - https://github.com/meetshah1995/pytorch-semseg
 - https://github.com/ycszen/pytorch-seg
+
+<img src="./_static/vis_with_legend.png" width="600"/>
